@@ -11,7 +11,7 @@ export default function Header() {
 
   return (
     <header className="bg-slate-100">
-      <div className="flex justify-between items-center px-[5%] py-2">
+      <div className="flex justify-between items-center px-[5%] py-3">
         <Link to="/" className="text-2xl font-bold text-slate-700">
           NxtFlare
         </Link>
