@@ -1,31 +1,33 @@
 import mongoose from "mongoose";
 
+const db = mongoose.connection.useDb("NxtFlareHomes");
+
 const userSchema = new mongoose.Schema(
   {
     username: {
       type: String,
       required: true,
       unique: true,
-      trim: true, // Removes whitespace from the beginning and end of the string
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
       trim: true,
-      lowercase: true, // Converts the email to lowercase
+      lowercase: true,
     },
     password: {
       type: String,
       required: true,
-      minlength: 6, // Sets a minimum length for the password
+      minlength: 6,
     },
   },
   {
-    timestamps: true, // Automatically adds createdAt and updatedAt fields
+    timestamps: true,
   }
 );
 
 // Create and export the model
-const User = mongoose.model("User", userSchema);
+const User = db.model("User", userSchema);
 export default User;
