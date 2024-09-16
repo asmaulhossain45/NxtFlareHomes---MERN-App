@@ -1,6 +1,6 @@
+import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
-import "dotenv/config";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 
@@ -25,8 +25,20 @@ mongoose
     process.exit(1); // Exit the process if the connection fails
   });
 
+// Route handlers
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  return res.status(statusCode).json({
+    success: false,
+    statusCode,
+    message,
+  });
+});
 
 // Start the Express server
 app.listen(PORT, () => {
